@@ -191,8 +191,8 @@ module emu
    assign HDMI_BOB_DEINT = 0;
 
    assign AUDIO_S = 0;
-   assign AUDIO_L = SoutL;//L;
-   assign AUDIO_R = SoutR;//R;
+   assign AUDIO_L = Sout;//L;
+   assign AUDIO_R = Sout;//R;
 
    assign AUDIO_MIX = 0;
 
@@ -218,7 +218,7 @@ module emu
    
 `include "build_id.v" 
    localparam CONF_STR = {
-                          "StarForce_st;;",
+                          "StarForce;;",
                           "-;",
                           "HFO1,Aspect Ratio,Original,Wide;",
                           //      "HFO2,Orientation,Vert,Horz;",
@@ -416,8 +416,8 @@ module emu
       .ROMEN ( ioctl_wr & rom_download ),
       
       .SOUT ( Sout ),
-      .SOUTL ( SoutL ),
-      .SOUTR ( SoutR ),
+      //.SOUTL ( SoutL ),
+      //.SOUTR ( SoutR ),
       
       
       .UDLRTSC ( UDLRTSC ),
