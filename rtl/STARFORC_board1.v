@@ -482,30 +482,6 @@ module starforc_board1
         
         assign sndprom_aout = sndcount;
         
-/*
-   always @(posedge zc_to2 )
-     begin
-        sndcount <= sndcount + 1;
-        case ( sndcount )
-          8'h0 : promout <= 8'hbf;
-          8'h1 : promout <= 8'haf;
-          8'h2 : promout <= 8'h9e;
-          8'h3 : promout <= 8'h8d;
-          8'h4 : promout <= 8'h9c;
-          8'h5 : promout <= 8'hab;
-          8'h6 : promout <= 8'h9a;
-          8'h7 : promout <= 8'h88;
-          8'h8 : promout <= 8'h37;
-          8'h9 : promout <= 8'h26;
-          8'ha : promout <= 8'h15;
-          8'hb : promout <= 8'h04;
-          8'hc : promout <= 8'h33;
-          8'hd : promout <= 8'h22;
-          8'he : promout <= 8'h10;
-          8'hf : promout <= 8'h00;
-        endcase
-     end
-*/
 
    ctc z80_ctc 
      (
