@@ -36,28 +36,28 @@
 	</switches>
 
 	<rom index="0" zip="starforc.zip" md5="none" type="merged|nonmerged">
-	   	<part crc="8ba27691" name="3.3p"/>  <!-- main 0-3fff -->      <!-- 00000 - 03FFF --> 00_0000_0000_0000_0000 - 00_0011_1111_1111_1111
-		<part crc="0fc4d2d6" name="2.3mn"/> <!-- 4000-7fff -->        <!-- 04000 - 07FFF --> 00_0100_0000_0000_0000 - 00_0111_1111_1111_1111
-		<part crc="2735bb22" name="1.3hj"/> <!-- snd 0-1fff -->       <!-- 08000 - 09FFF --> 00_1000_0000_0000_0000 - 00_1001_1111_1111_1111
-		<part repeat="8192">00</part>       <!-- (snd stereo ) -->    <!-- 0A000 - 0BFFF --> 00_1010_0000_0000_0000 - 00_1011_1111_1111_1111
-		<part crc="eead1d5c" name="9.3fh"/> <!-- rom6 0-fff -->       <!-- 0C000 - 0CFFF --> 00_1100_0000_0000_0000 - 00_1100_1111_1111_1111
-		<part crc="96979684" name="8.3fh"/> <!-- rom7 0-fff -->       <!-- 0D000 - 0DFFF --> 00_1101
-		<part crc="f4803339" name="7.2fh"/> <!-- rom8 0-fff -->       <!-- 0E000 - 0EFFF --> 00_1110
-		<part repeat="4096">00</part>       <!-- pad -->              <!-- 0F000 - 0FFFF --> none
-		<part crc="dd9d68a4" name="4.8lm"/> <!-- rom9,10 0-3fff -->   <!-- 10000 - 13FFF --> 01_0000 - 01_0001 , 01_0010 - 01_0011
- 		<part crc="f71717f8" name="5.9lm"/> <!-- rom11,12 0-3fff -->  <!-- 14000 - 17FFF --> 01_0100 - 01_0101 , 01_0110 - 01_0111 
-		<part crc="5468a21d" name="6.10lm"/> <!-- rom13,14 0-3fff --> <!-- 18000 - 1BFFF --> 01_1000 - 01_1001 , 01_1010 - 01_1011
-		<part crc="68c60d0f" name="17.9pq"/> <!-- sw1 0-fff -->       <!-- 1C000 - 1CFFF --> 01_1100
-		<part crc="ce20b469" name="16.8pq"/> <!-- sw1 1000-1fff -->   <!-- 1D000 - 1DFFF --> 01_1101
-		<part crc="6455c3ad" name="18.10pq"/> <!-- sw2 0-fff -->      <!-- 1E000 - 1EFFF --> 01_1110
+	   	<part crc="8ba27691" name="3.3p"/>  <!-- main 0-3fff -->      <!-- 00000 - 03FFF -->
+		<part crc="0fc4d2d6" name="2.3mn"/> <!-- 4000-7fff -->        <!-- 04000 - 07FFF -->
+		<part crc="2735bb22" name="1.3hj"/> <!-- snd 0-1fff -->       <!-- 08000 - 09FFF -->
+		<part repeat="8192">00</part>       <!-- (snd stereo ) -->    <!-- 0A000 - 0BFFF -->
+		<part crc="eead1d5c" name="9.3fh"/> <!-- rom6 0-fff -->       <!-- 0C000 - 0CFFF -->
+		<part crc="96979684" name="8.3fh"/> <!-- rom7 0-fff -->       <!-- 0D000 - 0DFFF -->
+		<part crc="f4803339" name="7.2fh"/> <!-- rom8 0-fff -->       <!-- 0E000 - 0EFFF -->
+		<part repeat="4096">00</part>       <!-- pad -->              <!-- 0F000 - 0FFFF -->
+		<part crc="dd9d68a4" name="4.8lm"/> <!-- rom9,10 0-3fff -->   <!-- 10000 - 13FFF -->
+ 		<part crc="f71717f8" name="5.9lm"/> <!-- rom11,12 0-3fff -->  <!-- 14000 - 17FFF --> 
+		<part crc="5468a21d" name="6.10lm"/> <!-- rom13,14 0-3fff --> <!-- 18000 - 1BFFF -->
+		<part crc="68c60d0f" name="17.9pq"/> <!-- sw1 0-fff -->       <!-- 1C000 - 1CFFF -->
+		<part crc="ce20b469" name="16.8pq"/> <!-- sw1 1000-1fff -->   <!-- 1D000 - 1DFFF -->
+		<part crc="6455c3ad" name="18.10pq"/> <!-- sw2 0-fff -->      <!-- 1E000 - 1EFFF -->
 		<part repeat="4096">00</part>       <!-- pad -->              <!-- 1F000 - 1FFFF -->
-		<part crc="84603285" name="13.8jk"/> <!-- rom15 0-1fff -->    <!-- 20000 - 21FFF --> 10_0000 - 10_0001 
-		<part crc="9e9384fe" name="14.9jk"/> <!-- rom16 0-1fff -->    <!-- 22000 - 23FFF --> 10_0010 - 10_0011
-		<part crc="c3bda12f" name="15.10jk"/> <!-- rom17 0-1fff -->   <!-- 24000 - 25FFF --> 10_0100 - 10_0101
-		<part crc="c62a19c1" name="10.8de"/> <!-- rom18 0-1fff -->    <!-- 26000 - 27FFF --> 10_0110 - 10_0111
-		<part crc="668aea14" name="11.9de"/> <!-- rom19 0-1fff -->    <!-- 28000 - 29FFF --> 10_1000 - 10_1001
-		<part crc="fdd9e38b" name="12.10de"/> <!-- rom20 0-1fff -->   <!-- 2A000 - 2BFFF --> 10_1010 - 10_1011
-		<part crc="68db8300" name="07b.bin"/> <!-- prom 0-1f -->      <!-- 2C000 - 2C01F --> 10_1010_0000_0000_0000 - 10_1010_0000_0001_1111 
+		<part crc="84603285" name="13.8jk"/> <!-- rom15 0-1fff -->    <!-- 20000 - 21FFF --> 
+		<part crc="9e9384fe" name="14.9jk"/> <!-- rom16 0-1fff -->    <!-- 22000 - 23FFF -->
+		<part crc="c3bda12f" name="15.10jk"/> <!-- rom17 0-1fff -->   <!-- 24000 - 25FFF -->
+		<part crc="c62a19c1" name="10.8de"/> <!-- rom18 0-1fff -->    <!-- 26000 - 27FFF -->
+		<part crc="668aea14" name="11.9de"/> <!-- rom19 0-1fff -->    <!-- 28000 - 29FFF -->
+		<part crc="fdd9e38b" name="12.10de"/> <!-- rom20 0-1fff -->   <!-- 2A000 - 2BFFF -->
+		<part crc="68db8300" name="07b.bin"/> <!-- prom 0-1f -->      <!-- 2C000 - 2C01F --> 
  
 	</rom>
 	<rom index="2"></rom>
