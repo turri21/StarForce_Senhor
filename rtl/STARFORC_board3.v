@@ -602,7 +602,7 @@ module starforc_board3
       .address ( POS_A ),
       .data ( dcon_in  ),
       .q ( BGPOS_D  ),
-      .clock ( grpclk1 ), //grpclk1! //relatively slow
+      .clock ( grpclk1 ), 
       .wren ( ~nBGPOS_WR )
       );
 
@@ -858,7 +858,7 @@ module bgpart
             end
      end
    
-   assign l8_cn011_next_cp = (bc468c[2:0] == 3'b100 );//100 - 110
+   assign l8_cn011_next_cp = (bc468c[2:0] == 3'b100 );
    
    wire uA579C = ~( bc468c[2] & bc468c[1] & bc468c[0] );
    assign SW12_a12 = bc468c[2];
@@ -867,7 +867,7 @@ module bgpart
    
    always @(posedge grpclk1 )
      if (grpclk2) begin
-        if (bc468c[2:0] == (3'b111 + pal_deviation)) ///111suppose -1 is good 
+        if (bc468c[2:0] == (3'b111 + pal_deviation)) ///suppose -1 is good 
           SWxs[12:9] = SWx[12:9];
      end
 
@@ -898,15 +898,10 @@ module bgpart
 spram10 ef579
      (
       .address (   BGVxRAM_A ),
-		
       .data ( DCON_in ),
-      
       .q ( BGVxRAM_Dout_b ),
-      
       .clock  ( ~grpclk1 ),
-      
       .wren  ( ~snBGV_WR  )
-		
       );
 
    
