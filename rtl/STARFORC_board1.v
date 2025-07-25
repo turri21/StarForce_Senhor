@@ -46,7 +46,7 @@ module starforc_board1
    input wire	      nCMPBLKs2,
    output reg	      FLIP,
    output wire	      nMEWR,
-   input wire [7:0]   SCRL,
+   input wire [8:0]   SCRL,
    input wire [7:0]   BGPOS,
    input wire	      nSW,
     

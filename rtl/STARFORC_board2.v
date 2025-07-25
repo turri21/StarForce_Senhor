@@ -255,7 +255,7 @@ module starforc_board2
    reg [7:0]   RDc;
    
    
-   assign spr_deviation = 8'hfe;
+   assign spr_deviation = 8'hff;
    
    
    always @(posedge grpclk2)

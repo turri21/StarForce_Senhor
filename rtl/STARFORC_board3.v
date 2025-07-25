@@ -102,24 +102,29 @@ module starforc_board3
      end // if (grpclk2)
    
    reg [3:0] uL1_q,uL2_q,uR1_q,uR2_q,uL3_q,uR3_q;
-   
+   reg [8:0] uL12_q;
+	
+	
    always @(posedge grpclk1)
      if (grpclk2) begin
         if ( b2H & b1H )
           begin
              if ( ~b4H & ~b8H & ~b16H ) begin // x0H
-                uL1_q <= BGPOS_D[3:0];
-                uL2_q <= BGPOS_D[7:4];
+                uL12_q = BGPOS_D + 8'd1;
+					 uL1_q = uL12_q[3:0];
+					 uL2_q = uL12_q[7:4];
              end
              if ( ~b4H &  b8H & ~b16H ) begin // x8H
                 uR1_q <= BGPOS_D[3:0];
                 uR2_q <= BGPOS_D[7:4];
              end
              if (  b4H & ~b8H & ~b16H ) begin // x4H
-                uL3_q <= BGPOS_D[3:0];
+                uL3_q[2:0] <= BGPOS_D[2:0] + uL12_q[8];
+					 uL3_q[3] <= 1'b0;
              end
              if (  b4H &  b8H & ~b16H ) begin // x12H
-                uR3_q <= BGPOS_D[3:0];
+                uR3_q[1:0] <= BGPOS_D[1:0];
+					 uR3_q[3:2] <= 2'b0;
              end
           end // if ( b2H & b1H )
      end // if (grpclk2)
@@ -147,7 +152,7 @@ module starforc_board3
    
    ls283 uM3
      (
-      .A ( {1'b0, uR3_q[2:0] } ),
+      .A ( {1'b0, uL3_q[2:0] } ),
       .B ( 4'b0 ),
       .c0 ( uM2_c4 ),
       .S ( uM3_S ),
@@ -286,7 +291,7 @@ module starforc_board3
 
    //StarField
    //sw12
-   
+	
    bgpart sw12
      (
       .grpclk2 ( grpclk2 ),
@@ -592,12 +597,12 @@ module starforc_board3
    wire        nBGPOS_RD = nCS_BGPOS | nMERD;
    wire        nBGPOS_RDWR = nBGPOS_WR & nBGPOS_RD;
 
-   spram6 ef579
+   spram6 posram
      (
       .address ( POS_A ),
       .data ( dcon_in  ),
       .q ( BGPOS_D  ),
-      .clock ( grpclk2 ), //relatively slow
+      .clock ( grpclk1 ), //grpclk1! //relatively slow
       .wren ( ~nBGPOS_WR )
       );
 
@@ -889,30 +894,28 @@ module bgpart
    wire snBGV_WR = nCS_BGV ? 1 : nBGV_WR;
    wire [7:0] BGVxRAM_Dout_a,BGVxRAM_Dout_b;
 
-   dpram10 ef579
+
+spram10 ef579
      (
-      .address_a (  { 1'b0, u174_q[2:0], u174_q[5:4], bc468c[7:4] ^ {4{FLIP}} } ),
-      .address_b ( bA ),
+      .address (   BGVxRAM_A ),
+		
+      .data ( DCON_in ),
       
-      .data_a( ),
-      .data_b( DCON_in ),
+      .q ( BGVxRAM_Dout_b ),
       
-      .q_a ( BGVxRAM_Dout_a ),
-      .q_b ( BGVxRAM_Dout_b ),
+      .clock  ( ~grpclk1 ),
       
-      .clock_a  ( ~grpclk2 ),
-      .clock_b  ( ~cpuclk ),
-      
-      .wren_a  ( ),
-      .wren_b  ( ~snBGV_WR  )
+      .wren  ( ~snBGV_WR  )
+		
       );
+
    
    wire [7:0] BGVxRAM_Dout;
    wire [7:0] BGVxRAM_Din;
    wire       f468_nce = nBGV_RD & snBGV_WR;
    
    assign DCON_out = (  ~f468_nce & snBGV_WR ) ? BGVxRAM_Dout_b : 8'b0;
-   assign BGVxRAM_Dout = BGVxRAM_Dout_a;
+   assign BGVxRAM_Dout = (  ~f468_nce & snBGV_WR ) ? 8'b0 : BGVxRAM_Dout_b; //BGVxRAM_Dout_a;
 
    always @(posedge grpclk1 )
      if (grpclk2) begin

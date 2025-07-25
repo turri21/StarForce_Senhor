@@ -151,7 +151,7 @@ module NANO_STARFORC
    wire       nCMPBLKs2;
    wire       FLIP;
    wire       nMEWR;
-   wire [7:0] SCRL;
+   wire [8:0] SCRL;
    wire [7:0] BGPOS;
    wire       nSW;
     
