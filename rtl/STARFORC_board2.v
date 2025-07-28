@@ -80,7 +80,12 @@ module starforc_board2
    
 );
 
-   wire [7:0] spr_deviation;
+   wire [7:0] spr_h_deviation;
+   assign spr_h_deviation = 8'hff;
+
+   wire [7:0] spr_v_deviation;
+   assign spr_v_deviation = 8'h01;
+
    
    reg [8:0]  xH;
    reg [8:0]  xV;
@@ -101,7 +106,7 @@ module starforc_board2
 	s_256H_n_t1 <= bn256H;
 	if (~bn256H  & s_256H_n_t1 ) 
           begin
-	     if (xV == 9'b111111111) 
+	     if (xV == 9'b111111111)
                xV <= 9'b011111000;
              else begin
 		xV <= xV + 1;
@@ -212,7 +217,7 @@ module starforc_board2
 	CD <= nCDL ? CD : bRD;
      end
 
-   wire [7:0] u1NP = { f128V, f64V, f32V, f16V, f8V, f4V, f2V, f1V } + bRD;
+   wire [7:0] u1NP = { f128V, f64V, f32V, f16V, f8V, f4V, f2V, f1V } + bRD + spr_v_deviation;
    reg	      MC0,MC1,MC2,MC4,MC5,MHFLIP;
    
    //1R
@@ -251,26 +256,25 @@ module starforc_board2
    wire	       nCNTRLDB = ~ ( SLOAD & ~b8H &  b1V & ~u2T_1Y );
    
    //3M,4M
-   wire	       u34M_MR = nCNTRLDA | ~s256Hr;//rbn256Hs;
+   wire	       u34M_MR = nCNTRLDA | ~s256Hr;
    reg [7:0]   RDc;
    
    
-   assign spr_deviation = 8'hff;
    
    
    always @(posedge grpclk2)
      if (u34M_MR == 0) RDc <= 8'b0;
      else 
-       RDc <= nCNTRLDB ? RDc + 1 : bRD + spr_deviation;
+       RDc <= nCNTRLDB ? RDc + 1 : bRD + spr_h_deviation;
    
    //5M,6M
-   wire        u56M_MR = nCNTRLDB | ~s256Hr;//rbn256Hs;
+   wire        u56M_MR = nCNTRLDB | ~s256Hr;
    reg [7:0]   RDd;
    
    always @(posedge grpclk2)
      if (u56M_MR == 0) RDd <= 8'b0;
      else
-       RDd <= nCNTRLDA ? RDd + 1 : bRD + spr_deviation;
+       RDd <= nCNTRLDA ? RDd + 1 : bRD + spr_h_deviation;
    
    //serializer
    //7RS
@@ -459,9 +463,9 @@ module starforc_board2
    assign cram_nwe = SS ? 1'b1 : nCS_V90;
    assign cram_a_read = { b2H, S128V, S64V, S32V, S16V, S8V, f128H, f64H, f32H, f16H, f8H } ;
    
-   wire	      u5CA = nMERD | nCS_V90;
-   wire	      u3JD = u5CA & cram_nwe;
-   wire [7:0] DCON_out_u8A = ( cram_nwe & ~u3JD ) ? cram_d2: 8'b0; 
+   wire [7:0] DCON_out_u8A = u5CA ? 8'b0 : cram_d2; // schematics -> ( cram_nwe & ~u3JD ) ? cram_d2: 8'b0; 
+   wire	      u5CA = ( nMERD | nCS_V90 );
+   wire	      u3JD = ( u5CA & cram_nwe );
 
    wire u34P_wr = ~grpclk2 & ~u34P_nCS ;
    wire u56P_wr = ~grpclk2 & ~u56P_nCS ;
@@ -478,21 +482,22 @@ module starforc_board2
      (.address ( u56P_addr ), .q(u56P_out) ,.data ( u56P_di ), .clock ( grpclk1), .wren ( u56P_wr ) );
    
    dpram11 u7b
-     (	.address_a ( cram_a_read ), .q_a ( cram_d ), .clock_a ( grpclk1), .wren_a ( ),
-	.address_b ( CPU_A[10:0] ), .q_b ( cram_d2 ), .clock_b ( grpclk1 ), .wren_b ( ~cram_nwe ), .data_b ( DCON_in ) );
+     (	.address_a ( cram_a_read ), .q_a ( cram_d  ), .clock_a ( ~grpclk1 ), .wren_a ( ),
+	      .address_b ( CPU_A[10:0] ), .q_b ( cram_d2 ), .clock_b ( ~cpuclk ), .wren_b ( ~cram_nwe & ~nMEWR ), .data_b ( DCON_in ) );
    
    reg	      bcram_d0;
    reg	      bcram_d1;
    reg	      bcram_d2;
    reg	      bcram_d6;
 
-   always @(posedge grpclk2)
+   always @(posedge grpclk1)
      begin
-	if (xH[2:0] == 3'b001) //001+1
+	if (xH[2:0] == 3'b001) 
 	  begin
 	     romb_addr[10:3] <= cram_d;
-	  end//011 ni kaeta v 
-	if (xH[2:0] == 3'b011) //011+1
+	  end
+	  
+	if (xH[2:0] == 3'b011) 
 	  begin
 	     bcram_d0 <= cram_d[0];
 	     bcram_d1 <= cram_d[1];

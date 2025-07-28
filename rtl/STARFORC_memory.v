@@ -117,15 +117,15 @@ module starforce_memory
        
    //board2 rom
    dpram12 rom6
-     ( .address_a ( romb_addr ), .q_a ( rom6_o ), .clock_a ( ~grpclk2 ) ,
+     ( .address_a ( romb_addr ), .q_a ( rom6_o ), .clock_a ( ~grpclk1 ) ,
        .address_b (ROMAD), .data_b (ROMDT), .clock_b (ROMCL),  .wren_b ( ROMEN & cs_rom6 ) );
 
    dpram12 rom7
-     ( .address_a ( romb_addr ), .q_a ( rom7_o ), .clock_a ( ~grpclk2 ) ,
+     ( .address_a ( romb_addr ), .q_a ( rom7_o ), .clock_a ( ~grpclk1 ) ,
        .address_b (ROMAD), .data_b (ROMDT), .clock_b (ROMCL),  .wren_b ( ROMEN & cs_rom7 ) );
 
    dpram12 rom8
-     ( .address_a ( romb_addr ), .q_a ( rom8_o ), .clock_a ( ~grpclk2 ) ,
+     ( .address_a ( romb_addr ), .q_a ( rom8_o ), .clock_a ( ~grpclk1 ) ,
        .address_b (ROMAD), .data_b (ROMDT), .clock_b (ROMCL),  .wren_b ( ROMEN & cs_rom8 ) );
 
    dpram13 rom9 

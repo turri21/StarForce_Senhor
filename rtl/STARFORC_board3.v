@@ -72,6 +72,10 @@ module starforc_board3
    
    );
 
+
+	parameter [7:0] bg_v_deviation = 8'b1;
+
+	
    reg nx0H,nx4H,nx8H,nx12H,nx16H,nx20H,nx24H,nx28H;
    
    always @(posedge grpclk1)
@@ -105,12 +109,13 @@ module starforc_board3
    reg [8:0] uL12_q;
 	
 	
+	
    always @(posedge grpclk1)
      if (grpclk2) begin
         if ( b2H & b1H )
           begin
              if ( ~b4H & ~b8H & ~b16H ) begin // x0H
-                uL12_q = BGPOS_D + 8'd1;
+                uL12_q = BGPOS_D + bg_v_deviation;
 					 uL1_q = uL12_q[3:0];
 					 uL2_q = uL12_q[7:4];
              end
