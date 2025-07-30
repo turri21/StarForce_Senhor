@@ -180,7 +180,6 @@ module emu
    assign {UART_RTS, UART_TXD, UART_DTR} = 0;
    assign {SD_SCK, SD_MOSI, SD_CS} = 'Z;
    assign {SDRAM_DQ, SDRAM_A, SDRAM_BA, SDRAM_CLK, SDRAM_CKE, SDRAM_DQML, SDRAM_DQMH, SDRAM_nWE, SDRAM_nCAS, SDRAM_nRAS, SDRAM_nCS} = 'Z;
-   assign {DDRAM_CLK, DDRAM_BURSTCNT, DDRAM_ADDR, DDRAM_DIN, DDRAM_BE, DDRAM_RD, DDRAM_WE} = '0;  
 
    //assign VGA_SL = 0;
    assign VGA_F1 = 0;
@@ -206,22 +205,22 @@ module emu
    wire VertHorz = status[2];
    
 
-   assign VIDEO_ARX =    ar ? 8'd16 : 8'd40; //( status[2] ? 8'd40 : 8'd30 );
-   assign VIDEO_ARY =    ar ? 8'd9  : 8'd30; //( status[2] ? 8'd30 : 8'd40 );
+   assign VIDEO_ARX =    ar ? 8'd16 : ( status[2] ? 8'd40 : 8'd30 );
+   assign VIDEO_ARY =    ar ? 8'd9  : ( status[2] ? 8'd30 : 8'd40 );
 
    
    // Status Bitmap:
    // 0          1          2          3
    // 01234567890123456789012345678901
    // 0123456789ABCDEFGHIJKLMNOPQRSTUV
-   // -A-fffi-------------------------
+   // -AOfffi-------------------------
    
 `include "build_id.v" 
    localparam CONF_STR = {
                           "StarForce;;",
                           "-;",
                           "HFO1,Aspect Ratio,Original,Wide;",
-                          //      "HFO2,Orientation,Vert,Horz;",
+                          "HFO2,Orientation,Vert,Horz;",
                           "O35,Scandoubler Fx,None,HQ2x,CRT 25%,CRT 50%,CRT 75%;",
                           "-;",
                           "DIP;",
@@ -298,7 +297,20 @@ module emu
       
       );
         
-        
+`ifdef MISTER_FB
+
+	screen_rotate screen_rotate
+	(
+		.*,
+		.video_rotated(),
+		.rotate_ccw(0)
+	);
+
+`else
+	
+	assign {DDRAM_CLK, DDRAM_BURSTCNT, DDRAM_ADDR, DDRAM_DIN, DDRAM_BE, DDRAM_RD, DDRAM_WE} = '0;  
+	
+`endif        
         
         
         

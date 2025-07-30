@@ -374,7 +374,7 @@ module starforc_board2
       .c4 ()
       );
 
-   assign nCMPBLKs = rnCMPBLKs;
+   assign nCMPBLKs = rnCMPBLKs | ( ( xH == 9'h107 ) & nVBLANK ) ;
    assign nCMPBLKs2 = nCMPBLK | nCMPBLKs;
    assign nSW = ~b2H & b4H ;
    

@@ -760,13 +760,11 @@ module starforc_board3
    reg [8:0] bgx;
    reg       u9q5;
    
-   always @(posedge grpclk1 or negedge nCMPBLKs )
+   always @(posedge grpclk1)
      begin
         if (nCMPBLKs == 0 )
           bgx <= 9'b000000000;
         else begin
-           u9q5 <= nCMPBLKs;
-           
            if (grpclk2)    begin
               bgx <= { uU4_s[0],T7Zb,T7Za,T8Zb,T8Za,U8Zb,U8Za,U7Zb,U7Za };
            end
