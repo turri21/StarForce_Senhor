@@ -151,7 +151,7 @@ module starforc_board2
    wire	clk6m_b7h = grpclk2 | nb7H ;
    reg	rb1Vs,rnCMPBLKs;
    wire	nCMPBLK = nVBLANK & bn256H;
-   assign nHBLANK = ~ (  (xH > 9'h88 ) && (xH < 9'h100) ) ;  
+   assign nHBLANK = ~ (  (xH > 9'h87 ) && (xH < 9'h108) ) ;  
 	
    assign  nTVSYNC = nHSYNC & nVSYNC;
 

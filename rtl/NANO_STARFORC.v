@@ -260,7 +260,7 @@ module NANO_STARFORC
    assign VSync = ~nVSYNC;
    assign HBlank = ~nHBLANK;
    assign VBlank = ~nVBLANK;
-   assign pxclk = clk_12096;
+   assign pxclk = clk_6048;
 
    starforc_board2 gamemain2
      (
